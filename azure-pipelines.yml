@@ -13,6 +13,7 @@ steps:
 
 - script: |
     echo Mirroring code to GitHub
+    git checkout -b master
     git remote add gh-mirror https://martinwoodward:$GH-PAT@https://github.com/martinwoodward/AADWebApp.git
     git push gh-mirror master
   displayName: 'Mirror code to GitHub'
