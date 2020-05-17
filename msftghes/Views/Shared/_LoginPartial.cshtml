@@ -1,0 +1,20 @@
+@using System.Security.Principal
+    <ul class="navbar-nav ml-auto">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @User.Identity.Name
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @Html.ActionLink("Profile", "Index", "UserProfile", null, new { @class = "dropdown-item" })
+                    <div class="dropdown-divider"></div>
+                    <a asp-area="AzureAD" asp-controller="Account" asp-action="SignOut" class="dropdown-item">Sign out</a>
+                </div>
+            </li>
+            }
+            else
+            {
+            <li><a asp-area="AzureAD" asp-controller="Account" asp-action="SignIn">Sign in</a></li>
+            }
+        </ul>

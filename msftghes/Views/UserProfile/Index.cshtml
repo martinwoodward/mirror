@@ -1,0 +1,94 @@
+﻿@using Newtonsoft.Json.Linq
+@using System.Security.Claims
+@{
+    ViewData["Title"] = "Profile & Groups";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<table class="table table-striped table-condensed" style="font-family: monospace">
+    <tr>
+        <th>Property</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>photo</td>
+        <td>
+            @{
+                if (ViewData["Photo"] != null)
+                {
+                    <img style="margin: 5px 0; width: 150px" src="data:image/jpeg;base64, @ViewData["Photo"]" />
+                }
+                else
+                {
+                    <h3>NO PHOTO</h3>
+                    <p>Check user profile in Azure Active Directory to add a photo.</p>
+                }
+            }
+        </td>
+    </tr>
+</table>
+@{
+    var user = ViewData["Me"] as Microsoft.Graph.User;
+    var principal = ViewData["User"] as ClaimsPrincipal;
+
+}
+<table class="table table-bordered table-striped">
+    <tr>
+        <td>Display Name</td>
+        <td>@user.DisplayName</td>
+    </tr>
+    <tr>
+        <td>First Name</td>
+        <td>@user.GivenName</td>
+    </tr>
+    <tr>
+        <td>Last Name</td>
+        <td>@user.Surname</td>
+    </tr>
+</table>
+
+
+<h4>Claims from the signed-in user's token</h4>
+<table class="table table-striped table-bordered table-condensed table-hover">
+    <tr>
+        <th>ClaimType</th>
+        <th>Value</th>
+    </tr>
+    @foreach (var claim in principal.Claims)
+    {
+        <tr>
+            @{
+                if (claim.Type == "groups")
+                {
+                    <td><b>@claim.Type</b></td>
+                }
+                else
+                {
+                    <td>@claim.Type</td>
+                }
+            }
+
+            <td>@claim.Value</td>
+        </tr>
+    }
+</table>
+
+<h4>Your Current Groups:</h4>
+<table class="table table-striped table-bordered table-condensed table-hover">
+    <tr>
+        <th>Name</th>
+        <th>Group's ObjectID</th>
+    </tr>
+
+    @foreach (Microsoft.Graph.Group group in (List
+<Microsoft.Graph.Group>
+  )ViewData["Groups"])
+    {
+        <tr>
+            <td>@group.DisplayName</td>
+            <td>@group.Id</td>
+        </tr>
+    }
+
+</table>
