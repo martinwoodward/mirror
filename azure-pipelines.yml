@@ -11,12 +11,11 @@ pool:
 
 steps:
 
-- script: |
-    echo Mirroring code to GitHub
-    git checkout -b master
-    git remote add gh-mirror https://martinwoodward:$GH-PAT@github.com/martinwoodward/AADWebApp.git
-    git push gh-mirror master
-  displayName: 'Mirror code to GitHub'
-  env:
-    GH-PAT: $(GH-PAT)
+- task: swellaby.mirror-git-repository.mirror-git-repository-vsts-task.mirror-git-repository-vsts-task@1
+  displayName: 'Mirror Git Repository'
+  inputs:
+    sourceGitRepositoryUri: 'https://martin@dev.azure.com/martin/AADWebApp/_git/AADWebApp'
+    sourceVerifySSLCertificate: false
+    destinationGitRepositoryUri: 'https://github.com/martinwoodward/AADWebApp.git'
+    destinationGitRepositoryPersonalAccessToken: '$(GH-PAT)'
 
