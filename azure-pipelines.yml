@@ -18,6 +18,6 @@ steps:
     sourceGitRepositoryUri: 'https://dev.azure.com/martin/AADWebApp/_git/AADWebApp'
     sourceGitRepositoryPersonalAccessToken: '$(ADO-PAT)'
     sourceVerifySSLCertificate: false
-    destinationGitRepositoryUri: 'https://github.com/Anthophila/martin_AADWebApp.git'
+    destinationGitRepositoryUri: 'https://github.com/martinwoodward/martin_AADWebApp.git'
     destinationGitRepositoryPersonalAccessToken: '$(GH-PAT)'
 
